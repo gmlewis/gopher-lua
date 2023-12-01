@@ -28,7 +28,9 @@ func loGetPath(env string, defpath string) string {
 }
 
 func loFindFile(L *LState, name, pname string) (string, string) {
-	name = strings.Replace(name, ".", string(os.PathSeparator), -1)
+	// This line has been changed from github.com/yuin/gopher-lua to
+	// allow a "require" that is relative to a directory on a path.
+	// name = strings.Replace(name, ".", string(os.PathSeparator), -1)
 	lv := L.GetField(L.GetField(L.Get(EnvironIndex), "package"), pname)
 	path, ok := lv.(LString)
 	if !ok {
